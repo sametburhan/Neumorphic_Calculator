@@ -18,11 +18,6 @@ class MyApp extends StatelessWidget {
         lightSource: LightSource.topLeft,
         depth: 10,
       ),
-      darkTheme: NeumorphicThemeData(
-        baseColor: color2,
-        lightSource: LightSource.topLeft,
-        depth: 6,
-      ),
       home: CalculatorProject(),
     );
   }

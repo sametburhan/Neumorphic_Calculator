@@ -21,6 +21,9 @@ class _CalculatorProjectState extends State<CalculatorProject> {
   }
 }
 
+var userQuestion = "";
+var userAnsver = "";
+
 class contents extends StatefulWidget {
   const contents({
     Key? key,
@@ -62,7 +65,7 @@ class _contentsState extends State<contents> {
           flex: 1,
           child: calculationTable(context),
         ),
-        Expanded(flex: 2, child: calculationArea(context)),
+        Expanded(flex: 2, child: calculationButton(context)),
       ],
     );
   }
@@ -85,16 +88,16 @@ class _contentsState extends State<contents> {
               padding:
                   EdgeInsets.only(right: 20, left: 20, top: 50, bottom: 20),
               child: Text(
-                "15 + 20 =",
-                style: TextStyle(fontSize: 38),
+                userQuestion,
+                style: TextStyle(fontSize: 38, color: color3),
               ),
             ),
             Container(
               alignment: Alignment.centerRight,
               padding: EdgeInsets.all(20),
               child: Text(
-                "35",
-                style: TextStyle(fontSize: 48),
+                userAnsver,
+                style: TextStyle(fontSize: 48, color: color4),
               ),
             ),
             Row(
@@ -113,17 +116,45 @@ class _contentsState extends State<contents> {
   }
 }
 
-Widget calculationArea(BuildContext context) {
+Widget calculationButton(BuildContext context) {
   return Container(
+      padding: EdgeInsets.all(12),
       child: GridView.builder(
+          physics: NeverScrollableScrollPhysics(),
           itemCount: buttons.length,
           gridDelegate:
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
           itemBuilder: (BuildContext context, int index) {
-            return MyButton(
-              buttonText: buttons[index],
-              color: color1,
-              textColor: color2,
-            );
+            if (index == 0) {
+              return MyButton(
+                buttonText: buttons[index],
+                color: color2,
+                textColor: color1,
+              );
+            } else if (index == 1) {
+              return MyButton(
+                buttonText: buttons[index],
+                color: color5,
+                textColor: color1,
+              );
+            } else {
+              return MyButton(
+                buttonText: buttons[index],
+                color: isOperator(buttons[index]) ? color3 : color1,
+                textColor: isOperator(buttons[index]) ? color1 : color3,
+                buttonTapped: () {
+                  setState() {
+                    userQuestion = userQuestion + buttons[index];
+                  }
+                },
+              );
+            }
           }));
+}
+
+bool isOperator(String x) {
+  if (x == "%" || x == "/" || x == "x" || x == "+" || x == "-" || x == "=") {
+    return true;
+  }
+  return false;
 }

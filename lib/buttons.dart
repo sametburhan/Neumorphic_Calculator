@@ -5,29 +5,38 @@ class MyButton extends StatelessWidget {
   final color;
   final textColor;
   final String buttonText;
+  final buttonTapped;
 
-  MyButton({this.color, required this.buttonText, this.textColor});
+  MyButton(
+      {this.color,
+      required this.buttonText,
+      this.textColor,
+      this.buttonTapped});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        padding: EdgeInsets.all(5),
-        child: NeumorphicButton(
-          onPressed: () => {},
-          child: Center(
-            child: Text(
-              buttonText,
-              style: TextStyle(color: textColor, fontSize: 20),
+    return GestureDetector(
+      onTap: buttonTapped,
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Container(
+          padding: EdgeInsets.all(5),
+          child: NeumorphicButton(
+            onPressed: () {},
+            child: Center(
+              child: Text(
+                buttonText,
+                style: TextStyle(color: textColor, fontSize: 20),
+              ),
             ),
-          ),
-          style: NeumorphicStyle(
-            color: color,
-            shape: NeumorphicShape.concave,
-            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(100)),
-            depth: 10,
-            lightSource: LightSource.topLeft,
+            style: NeumorphicStyle(
+              color: color,
+              shape: NeumorphicShape.concave,
+              boxShape:
+                  NeumorphicBoxShape.roundRect(BorderRadius.circular(100)),
+              depth: 10,
+              lightSource: LightSource.topLeft,
+            ),
           ),
         ),
       ),
