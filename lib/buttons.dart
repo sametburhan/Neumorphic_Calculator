@@ -5,24 +5,24 @@ class MyButton extends StatelessWidget {
   final color;
   final textColor;
   final String buttonText;
-  final buttonTapped;
 
-  MyButton(
-      {this.color,
-      required this.buttonText,
-      this.textColor,
-      this.buttonTapped});
+  MyButton({
+    this.color,
+    required this.buttonText,
+    this.textColor,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: buttonTapped,
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Container(
-          padding: EdgeInsets.all(5),
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Container(
+        padding: EdgeInsets.all(5),
+        child: GestureDetector(
           child: NeumorphicButton(
-            onPressed: () {},
+            onPressed: () {
+              print(buttonText);
+            },
             child: Center(
               child: Text(
                 buttonText,
