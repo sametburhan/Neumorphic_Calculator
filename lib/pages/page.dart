@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:test_1/buttons.dart';
 import 'package:test_1/constants/constants.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -16,7 +15,7 @@ class _CalculatorProjectState extends State<CalculatorProject> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: contents(),
+        child: Container(child: contents()),
       ),
     );
   }
@@ -34,29 +33,6 @@ class contents extends StatefulWidget {
   State<contents> createState() => _contentsState();
 }
 
-final List<String> buttons = [
-  "C",
-  "DEL",
-  "%",
-  "/",
-  "7",
-  "8",
-  "9",
-  "x",
-  "4",
-  "5",
-  "6",
-  "-",
-  "1",
-  "2",
-  "3",
-  "+",
-  ".",
-  "0",
-  "ANS",
-  "=",
-];
-
 class _contentsState extends State<contents> {
   @override
   Widget build(BuildContext context) {
@@ -69,12 +45,6 @@ class _contentsState extends State<contents> {
         Expanded(flex: 2, child: calculationButton(context)),
       ],
     );
-  }
-
-  test1(index) {
-    return setState(() {
-      userQuestion = userQuestion + buttons[index];
-    });
   }
 
   Widget calculationTable(BuildContext context) {
@@ -123,56 +93,78 @@ class _contentsState extends State<contents> {
   }
 }
 
+Widget Buttons(String buttonText, Color buttonColor, Color textColor) {
+  return NeumorphicButton(
+    onPressed: () {},
+    child: SizedBox(
+      height: 65,
+      width: 50,
+      child: Center(
+        child: Text(
+          buttonText,
+          style: TextStyle(color: textColor, fontSize: 25),
+        ),
+      ),
+    ),
+    style: NeumorphicStyle(
+      color: buttonColor,
+      shape: NeumorphicShape.concave,
+      boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(100)),
+      depth: 10,
+      lightSource: LightSource.topLeft,
+    ),
+  );
+}
+
 Widget calculationButton(BuildContext context) {
-  return Container(
-      padding: EdgeInsets.all(12),
-      child: GridView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: buttons.length,
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
-          itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return MyButton(
-                buttonText: buttons[index],
-                color: color2,
-                textColor: color1,
-              );
-            } else if (index == 1) {
-              return MyButton(
-                buttonText: buttons[index],
-                color: color5,
-                textColor: color1,
-              );
-            } else if (index == buttons.length - 1) {
-              return MyButton(
-                buttonText: buttons[index],
-                color: color3,
-                textColor: color1,
-              );
-            } else {
-              return MyButton(
-                buttonText: buttons[index],
-                color: isOperator(buttons[index]) ? color3 : color1,
-                textColor: isOperator(buttons[index]) ? color1 : color3,
-              );
-            }
-          }));
-}
-
-bool isOperator(String x) {
-  if (x == "%" || x == "/" || x == "x" || x == "+" || x == "-" || x == "=") {
-    return true;
-  }
-  return false;
-}
-
-void equalPressed() {
-  String finalQuestion = userQuestion;
-  finalQuestion = finalQuestion.replaceAll("x", "*");
-  Parser p = Parser();
-  Expression exp = p.parse(finalQuestion);
-  ContextModel cm = ContextModel();
-  double eval = exp.evaluate(EvaluationType.REAL, cm);
-  userAnsver = eval.toString();
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Buttons("AC", color2, color1),
+          Buttons("C", color5, color1),
+          Buttons("+/-", color3, color1),
+          Buttons("/", color3, color1)
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Buttons("7", color1, color4),
+          Buttons("8", color1, color4),
+          Buttons("9", color1, color4),
+          Buttons("x", color3, color1)
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Buttons("4", color1, color4),
+          Buttons("5", color1, color4),
+          Buttons("6", color1, color4),
+          Buttons("-", color3, color1)
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Buttons("1", color1, color4),
+          Buttons("2", color1, color4),
+          Buttons("3", color1, color4),
+          Buttons("+", color3, color1)
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(width: 180, child: Buttons("0", color1, color4)),
+          Buttons(".", color1, color4),
+          // Buttons("ANS", color1, color4),
+          Buttons("=", color3, color1)
+        ],
+      ),
+    ],
+  );
 }
