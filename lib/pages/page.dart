@@ -218,14 +218,14 @@ class _contentsState extends State<contents> {
         calculation(buttonText);
       },
       child: SizedBox(
-        height: MediaQuery.of(context).size.width * .16,
-        width: MediaQuery.of(context).size.width * .12,
+        height: MediaQuery.of(context).size.width * .15,
+        width: MediaQuery.of(context).size.width * .11,
         child: Center(
           child: Text(
             buttonText,
             style: TextStyle(
               color: textColor,
-              fontSize: MediaQuery.of(context).size.width * .07,
+              fontSize: MediaQuery.of(context).size.width * .06,
             ),
           ),
         ),
@@ -290,6 +290,9 @@ class _contentsState extends State<contents> {
             Buttons("=", color3, color1)
           ],
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.width * .04,
+        )
       ],
     );
   }
